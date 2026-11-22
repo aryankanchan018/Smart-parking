@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Environment
+.env
+*.env
+
+# YOLO model weights (large binary — download separately)
+vision/yolo11n.pt
+vision/*.pt
+vision/yolo11n.onnx
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# MongoDB
+*.db
+
+# Reports (generated at runtime)
+tests/reports/*.json
+
+# IDE
+.vscode/
+.idea/
+*.suo
+
+# OS
+.DS_Store
+Thumbs.db
