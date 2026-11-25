@@ -14,7 +14,7 @@ CAMERA_WEIGHT  = 0.6
 SENSOR_WEIGHT  = 0.4
 
 # Temporal stability: require N consistent readings before changing state
-STABILITY_WINDOW = 3
+STABILITY_WINDOW = 1
 
 # Max age of a reading before it's considered stale (seconds)
 CAMERA_STALE_SEC = 2.0

@@ -37,9 +37,10 @@
 #include <ArduinoJson.h>
 #include <ESP32Servo.h>
 
-// ── WiFi credentials ──────────────────────────────────────────────
-const char* WIFI_SSID     = "Kanchan HomeNet";
-const char* WIFI_PASSWORD = "NoPwd@250304";
+// ── WiFi credentials (tries each in order) ──────────────────────
+const char* WIFI_SSIDS[]     = {"Kanchan HomeNet", "AJ",         "Students"};
+const char* WIFI_PASSWORDS[] = {"NoPwd@250304",    "55575557",   "00000000"};
+const int   WIFI_COUNT       = 3;
 
 // ── Backend endpoint ──────────────────────────────────────────────
 const char* BACKEND_URL = "http://192.168.31.54:8000/api/sensor-readings";
@@ -62,7 +63,7 @@ Servo gateServo;
 // ── Threshold & timing ────────────────────────────────────────────
 const float OCCUPIED_MIN_CM       = 1.5;   // min range
 const float OCCUPIED_MAX_CM       = 15.0;  // max range
-const int   SENSOR_DELAY_MS       = 25;    // reduced delay
+const int   SENSOR_DELAY_MS       = 0;    // no delay
 const int   PUBLISH_INTERVAL_MS   = 300;
 
 unsigned long lastPublish = 0;
@@ -103,20 +104,25 @@ void setup() {
 
   // WiFi
   Serial.println("\n[BOOT] Smart Parking ESP32");
-  Serial.print("[WiFi] Connecting to ");
-  Serial.println(WIFI_SSID);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  int attempts = 0;
-  while (WiFi.status() != WL_CONNECTED && attempts < 20) {
-    delay(500);
-    Serial.print(".");
-    attempts++;
+  for (int n = 0; n < WIFI_COUNT; n++) {
+    Serial.print("[WiFi] Trying: ");
+    Serial.println(WIFI_SSIDS[n]);
+    WiFi.begin(WIFI_SSIDS[n], WIFI_PASSWORDS[n]);
+    int attempts = 0;
+    while (WiFi.status() != WL_CONNECTED && attempts < 20) {
+      delay(500);
+      Serial.print(".");
+      attempts++;
+    }
+    if (WiFi.status() == WL_CONNECTED) {
+      Serial.println("\n[WiFi] Connected to " + String(WIFI_SSIDS[n]) + " IP: " + WiFi.localIP().toString());
+      break;
+    }
+    Serial.println(" failed.");
+    WiFi.disconnect();
   }
-  if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("\n[WiFi] Connected! IP: " + WiFi.localIP().toString());
-  } else {
-    Serial.println("\n[WiFi] FAILED — Serial only mode");
-  }
+  if (WiFi.status() != WL_CONNECTED)
+    Serial.println("[WiFi] All networks failed — Serial only mode");
 }
 
 // ─────────────────────────────────────────────────────────────────
@@ -135,7 +141,6 @@ void loop() {
     occupied[i]  = (distances[i] >= OCCUPIED_MIN_CM && distances[i] <= OCCUPIED_MAX_CM);
     digitalWrite(LED_PINS[i], occupied[i] ? HIGH : LOW);
     if (occupied[i]) occupiedCount++;
-    delay(SENSOR_DELAY_MS);
   }
 
   // Gate control — close only when ALL slots full
