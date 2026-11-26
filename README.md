@@ -25,25 +25,11 @@ fused through an intelligent confidence-based engine with a live React dashboard
 <!-- Take a screenshot of the React dashboard running at http://localhost:5173 -->
 ![Dashboard](screenshots/dashboard.png.png)
 
-### Slot Cards — Hybrid Mode
-<!-- Screenshot showing slot cards with HYBRID / CAMERA / SENSOR mode badges -->
-![Slot Cards](screenshots/slot-cards.png)
 
 ### Live Camera Detection (YOLO)
 <!-- Screenshot of the OpenCV window showing polygon overlays and vehicle bounding boxes -->
 ![Camera Detection](screenshots/camera-detection.png.png)
 
-### Occupancy History Chart
-<!-- Screenshot of the history chart section at the bottom of the dashboard -->
-![History Chart](screenshots/history-chart.png)
-
-### ESP32 Serial Monitor
-<!-- Screenshot of Arduino IDE Serial Monitor showing sensor readings -->
-![Serial Monitor](screenshots/serial-monitor.png)
-
-### API Docs (Swagger UI)
-<!-- Screenshot of http://localhost:8000/docs -->
-![API Docs](screenshots/api-docs.png)
 
 > 📁 Create a `screenshots/` folder in the repo root and add your images there, then the above will render automatically on GitHub.
 
