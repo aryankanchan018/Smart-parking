@@ -23,7 +23,7 @@ fused through an intelligent confidence-based engine with a live React dashboard
 
 ### Live Dashboard
 <!-- Take a screenshot of the React dashboard running at http://localhost:5173 -->
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/dashboard.png.png)
 
 ### Slot Cards — Hybrid Mode
 <!-- Screenshot showing slot cards with HYBRID / CAMERA / SENSOR mode badges -->
@@ -31,7 +31,7 @@ fused through an intelligent confidence-based engine with a live React dashboard
 
 ### Live Camera Detection (YOLO)
 <!-- Screenshot of the OpenCV window showing polygon overlays and vehicle bounding boxes -->
-![Camera Detection](screenshots/camera-detection.png)
+![Camera Detection](screenshots/camera-detection.png.png)
 
 ### Occupancy History Chart
 <!-- Screenshot of the history chart section at the bottom of the dashboard -->
